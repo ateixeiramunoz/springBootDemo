@@ -1,0 +1,4 @@
+# Project exclude paths
+/target/
+git rm -r --cached  src/main/resources/application-local.properties
+/src/main/resources/application-local.properties
