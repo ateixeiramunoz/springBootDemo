@@ -1,5 +1,6 @@
 package com.eoi.springBootDemo;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -15,12 +16,13 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfig {
 
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         //Creamos la proteccion csrf
         http.csrf(
-                       Customizer.withDefaults()
+                Customizer.withDefaults()
                 ).authorizeHttpRequests(
                      authorize -> authorize.anyRequest().authenticated()
                 )
@@ -33,18 +35,24 @@ public class SecurityConfig {
         return http.build();
     }
 
+    //Ejemplo 2 UserDetailsService Basico para ejemplo
+//    @Bean
+//    public UserDetailsService userDetailsService() {
+//        UserDetails userDetails = User.withDefaultPasswordEncoder()
+//                .username("user")
+//                .password("password")
+//                .roles("USER")
+//                .build();
+//
+//        return new InMemoryUserDetailsManager(userDetails);
+//    }
 
-    @Bean
-    public UserDetailsService userDetailsService() {
 
-        UserDetails userDetails = User.withDefaultPasswordEncoder()
-                .username("user")
-                .password("password")
-                .roles("USER")
-                .build();
 
-        return new InMemoryUserDetailsManager(userDetails);
-    }
+
+
+    //
+
 
 
 }
