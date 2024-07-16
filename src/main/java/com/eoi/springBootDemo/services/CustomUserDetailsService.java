@@ -1,5 +1,6 @@
-package com.eoi.springBootDemo;
+package com.eoi.springBootDemo.services;
 
+import com.eoi.springBootDemo.repositories.UsuarioRepository;
 import com.eoi.springBootDemo.entities.UsuarioDemo;
 import org.springframework.context.MessageSource;
 import org.springframework.security.core.userdetails.UserDetails;

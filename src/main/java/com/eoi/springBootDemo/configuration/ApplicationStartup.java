@@ -1,8 +1,10 @@
-package com.eoi.springBootDemo;
+package com.eoi.springBootDemo.configuration;
 
+import com.eoi.springBootDemo.repositories.UsuarioRepository;
 import com.eoi.springBootDemo.entities.UsuarioDemo;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 /**
@@ -28,13 +30,16 @@ public class ApplicationStartup implements ApplicationListener<ApplicationReadyE
 
     private final UsuarioRepository usuarioRepository;
 
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+
     /**
      * Constructor de la clase que recibe un {@link UsuarioRepository} para interactuar con la base de datos.
      *
      * @param userRepository el repositorio de usuarios que se utilizará para guardar los datos del usuario.
      */
-    public ApplicationStartup(UsuarioRepository userRepository) {
+    public ApplicationStartup(UsuarioRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.usuarioRepository = userRepository;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     /**
@@ -51,7 +56,7 @@ public class ApplicationStartup implements ApplicationListener<ApplicationReadyE
      */
     @Override
     public void onApplicationEvent(final ApplicationReadyEvent event) {
-        UsuarioDemo usuarioDemo = new UsuarioDemo(1L, "user", "pepe", "lopez", "mail@mail.com", "password", "admin");
+        UsuarioDemo usuarioDemo = new UsuarioDemo(1L, "user", "pepe", "lopez", "mail@mail.com", bCryptPasswordEncoder.encode("password"), "admin");
         usuarioRepository.save(usuarioDemo);
         return;
     }

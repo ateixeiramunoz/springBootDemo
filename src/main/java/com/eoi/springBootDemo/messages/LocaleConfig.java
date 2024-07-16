@@ -1,4 +1,4 @@
-package messages;
+package com.eoi.springBootDemo.messages;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

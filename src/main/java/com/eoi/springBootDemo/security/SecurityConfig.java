@@ -1,20 +1,42 @@
-package com.eoi.springBootDemo;
+package com.eoi.springBootDemo.security;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+
+    http.formLogin(form -> form
+            .loginPage("/login")
+            .defaultSuccessUrl("/")
+                .permitAll()
+        );
+    //cierre de sesión
+        http.logout(logout -> logout
+            .logoutUrl("/usuarios/logout")
+            .logoutSuccessUrl("/")
+        );
+
+
+    //Página de Acceso Denegado
+                .and()
+                .exceptionHandling()
+                .accessDeniedPage("/accessDenied")
+
+    //Desactivación de CSRF y CORS
+                .and()
+                .csrf().disable()
+                .cors().disable()
+                .authenticationProvider(authenticationProvider());
+
+        return http.build();
+
 
 
     @Bean
@@ -32,6 +54,21 @@ public class SecurityConfig {
                         .loginPage("/login")
                         .permitAll()
                 );
+
+        http.logout(logout -> logout
+                .logoutUrl("/usuarios/logout")
+                .logoutSuccessUrl("/")
+        );
+
+        // Autorización de Solicitudes
+        http.authorizeHttpRequests()
+                .requestMatchers("/js/**").permitAll()
+                .requestMatchers("/img/**").permitAll()
+                .requestMatchers("/css/**").permitAll()
+                .requestMatchers("/fonts/**").permitAll()
+                .requestMatchers("/**").permitAll()
+                .requestMatchers(HttpMethod.POST, "/**").permitAll()
+                .anyRequest().authenticated();
         return http.build();
     }
 

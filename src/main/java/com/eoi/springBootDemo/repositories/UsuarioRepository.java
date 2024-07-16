@@ -1,4 +1,4 @@
-package com.eoi.springBootDemo;
+package com.eoi.springBootDemo.repositories;
 
 import com.eoi.springBootDemo.entities.UsuarioDemo;
 import org.springframework.data.jpa.repository.JpaRepository;
