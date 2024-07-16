@@ -3,60 +3,42 @@ package com.eoi.springBootDemo.security;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.config.Customizer;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
-    http.formLogin(form -> form
-            .loginPage("/login")
-            .defaultSuccessUrl("/")
-                .permitAll()
-        );
-    //cierre de sesión
-        http.logout(logout -> logout
-            .logoutUrl("/usuarios/logout")
-            .logoutSuccessUrl("/")
-        );
+    private final UserDetailsService userDetailsService;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-
-    //Página de Acceso Denegado
-                .and()
-                .exceptionHandling()
-                .accessDeniedPage("/accessDenied")
-
-    //Desactivación de CSRF y CORS
-                .and()
-                .csrf().disable()
-                .cors().disable()
-                .authenticationProvider(authenticationProvider());
-
-        return http.build();
-
+    public SecurityConfig(UserDetailsService userDetailsService, BCryptPasswordEncoder bcryptPasswordEncoder) {
+        this.userDetailsService = userDetailsService;
+        this.bCryptPasswordEncoder = bcryptPasswordEncoder;
+    }
 
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-
-        //Creamos la proteccion csrf
-        http.csrf(
-                Customizer.withDefaults()
-                ).authorizeHttpRequests(
-                     authorize -> authorize.anyRequest().authenticated()
-                )
-                .httpBasic(
-                        Customizer.withDefaults()
-                ).formLogin(form -> form
-                        .loginPage("/login")
-                        .permitAll()
-                );
-
+        http.formLogin(form -> form
+                .loginPage("/login")
+                .defaultSuccessUrl("/")
+                .permitAll()
+        );
+        //cierre de sesión
         http.logout(logout -> logout
                 .logoutUrl("/usuarios/logout")
+                .logoutSuccessUrl("/")
+        );
+
+        http.logout(logout -> logout
+                .logoutUrl("/logout")
                 .logoutSuccessUrl("/")
         );
 
@@ -72,23 +54,16 @@ public class SecurityConfig {
         return http.build();
     }
 
-    //Ejemplo 2 UserDetailsService Basico para ejemplo
-//    @Bean
-//    public UserDetailsService userDetailsService() {
-//        UserDetails userDetails = User.withDefaultPasswordEncoder()
-//                .username("user")
-//                .password("password")
-//                .roles("USER")
-//                .build();
-//
-//        return new InMemoryUserDetailsManager(userDetails);
-//    }
+
+    //  para autenticar a los usuarios.
+    private AuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+        authProvider.setUserDetailsService(userDetailsService);
+        authProvider.setPasswordEncoder(bCryptPasswordEncoder);
+        return authProvider;
+    }
 
 
-
-
-
-    //
 
 
 
