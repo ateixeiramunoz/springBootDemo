@@ -61,7 +61,8 @@ public class CustomUserDetailsService implements UserDetailsService {
         if (usuarioDemo.isPresent()) {
             return usuarioDemo.get();
         } else {
-            String errorMessage = messageSource.getMessage("user.not.found", null, Locale.getDefault());
+            String errorMessage =
+                    messageSource.getMessage("user.not.found", null, Locale.getDefault());
             throw new UsernameNotFoundException(errorMessage );
         }
 
