@@ -29,6 +29,16 @@ class LoginController {
         return "login";
     }
 
+
+
+
+
+
+
+
+
+
+
     @PostMapping("/login")
     public String processLogin(@RequestParam String email, @RequestParam String password, Model model) {
         Optional<UsuarioDemo> optionalUsuario = usuarioRepository.findBynombreDeUsuario(email);
@@ -42,5 +52,13 @@ class LoginController {
         }
         return "redirect:/login?error=true";
     }
+
+
+
+
+
+
+
+
 }
     

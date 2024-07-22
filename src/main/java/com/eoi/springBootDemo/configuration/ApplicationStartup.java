@@ -56,8 +56,29 @@ public class ApplicationStartup implements ApplicationListener<ApplicationReadyE
      */
     @Override
     public void onApplicationEvent(final ApplicationReadyEvent event) {
-        UsuarioDemo usuarioDemo = new UsuarioDemo(1L, "user", "pepe", "lopez", "mail@mail.com", bCryptPasswordEncoder.encode("password"), "admin");
+        UsuarioDemo usuarioDemo = new UsuarioDemo(1L, "user1", "pepe", "lopez", "mail@mail.com", bCryptPasswordEncoder.encode("password"), "admin");
+        UsuarioDemo usuarioDemo1 = new UsuarioDemo(2L, "user2", "pepe", "lopez", "mail@mail.com", bCryptPasswordEncoder.encode("password"), "admin");
+        UsuarioDemo usuarioDemo2 = new UsuarioDemo(3L, "user3", "pepe", "lopez", "mail@mail.com", bCryptPasswordEncoder.encode("password"), "admin");
+        UsuarioDemo usuarioDemo3 = new UsuarioDemo(4L, "user4", "pepe", "lopez", "mail@mail.com", bCryptPasswordEncoder.encode("password"), "admin");
+        UsuarioDemo usuarioDemo4 = new UsuarioDemo(5L, "user5", "pepe", "lopez", "mail@mail.com", bCryptPasswordEncoder.encode("password"), "admin");
+        UsuarioDemo usuarioDemo5 = new UsuarioDemo(6L, "user6", "pepe", "lopez", "mail@mail.com", bCryptPasswordEncoder.encode("password"), "admin");
+        UsuarioDemo usuarioDemo6 = new UsuarioDemo(7L, "user7", "pepe", "lopez", "mail@mail.com", bCryptPasswordEncoder.encode("password"), "admin");
+        UsuarioDemo usuarioDemo7 = new UsuarioDemo(8L, "user8", "pepe", "lopez", "mail@mail.com", bCryptPasswordEncoder.encode("password"), "admin");
+        UsuarioDemo usuarioDemo8 = new UsuarioDemo(9L, "user9", "pepe", "lopez", "mail@mail.com", bCryptPasswordEncoder.encode("password"), "admin");
+        UsuarioDemo usuarioDemo9 = new UsuarioDemo(10L, "user10", "pepe", "lopez", "mail@mail.com", bCryptPasswordEncoder.encode("password"), "admin");
+        UsuarioDemo usuarioDemo10 = new UsuarioDemo(11L, "user11", "pepe", "lopez", "mail@mail.com", bCryptPasswordEncoder.encode("password"), "admin");
         usuarioRepository.save(usuarioDemo);
+        usuarioRepository.save(usuarioDemo1);
+        usuarioRepository.save(usuarioDemo2);
+        usuarioRepository.save(usuarioDemo3);
+        usuarioRepository.save(usuarioDemo4);
+        usuarioRepository.save(usuarioDemo5);
+        usuarioRepository.save(usuarioDemo6);
+        usuarioRepository.save(usuarioDemo7);
+        usuarioRepository.save(usuarioDemo8);
+        usuarioRepository.save(usuarioDemo9);
+        usuarioRepository.save(usuarioDemo10);
+
         return;
     }
 }
