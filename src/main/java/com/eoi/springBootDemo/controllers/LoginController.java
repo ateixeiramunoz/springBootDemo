@@ -31,14 +31,6 @@ class LoginController {
 
 
 
-
-
-
-
-
-
-
-
     @PostMapping("/login")
     public String processLogin(@RequestParam String email, @RequestParam String password, Model model) {
         Optional<UsuarioDemo> optionalUsuario = usuarioRepository.findBynombreDeUsuario(email);

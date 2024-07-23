@@ -52,6 +52,8 @@ public class SecurityConfig {
                 .requestMatchers("/fonts/**").permitAll()
                 .requestMatchers("/**").permitAll()
                 .requestMatchers(HttpMethod.POST, "/**").permitAll()
+                .requestMatchers("/chat/**").permitAll()
+                .requestMatchers("/mensajes/").permitAll()
                 .anyRequest().authenticated();
         return http.build();
 
