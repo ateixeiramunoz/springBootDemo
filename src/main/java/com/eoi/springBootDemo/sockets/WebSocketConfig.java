@@ -17,6 +17,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
         registry.addEndpoint("/websockethandshake");
     }
 
+
     //Configuraremos el servicio STOMP (Stomp es nuestro message broker)
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
