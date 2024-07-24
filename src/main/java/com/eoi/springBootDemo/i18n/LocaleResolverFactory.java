@@ -1,7 +1,8 @@
-package com.eoi.springBootDemo.messages;
+package com.eoi.springBootDemo.i18n;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.rest.core.support.SelfLinkProvider;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -11,12 +12,12 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import java.util.Locale;
 
 @Configuration
-public class LocaleConfig implements WebMvcConfigurer {
+public class LocaleResolverFactory implements WebMvcConfigurer {
 
     @Bean
-    public LocaleResolver localeResolver() {
+    public LocaleResolver localeResolver(SelfLinkProvider selfLinkProvider) {
         SessionLocaleResolver slr = new SessionLocaleResolver();
-        slr.setDefaultLocale(Locale.ENGLISH);
+        slr.setDefaultLocale(Locale.of("ES"));
         return slr;
     }
 
@@ -31,4 +32,5 @@ public class LocaleConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(localeChangeInterceptor());
     }
+
 }

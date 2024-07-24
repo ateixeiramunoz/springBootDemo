@@ -42,6 +42,8 @@ public class SecurityConfig {
                 .logoutSuccessUrl("/")
         );
 
+
+
         // Autorización de Solicitudes
         http.authorizeHttpRequests()
                 .requestMatchers("/js/**").permitAll()
@@ -52,6 +54,11 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.POST, "/**").permitAll()
                 .anyRequest().authenticated();
         return http.build();
+
+
+
+
+
     }
 
 
